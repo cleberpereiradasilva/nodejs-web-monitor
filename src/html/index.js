@@ -11,7 +11,7 @@ const getStatusHttps = (url, cb) => {
 
       // The whole response has been received. Print out the result.
       resp.on("end", () => {
-        cb(data);
+        cb({ data: data, statusCode: resp.statusCode });
       });
     })
     .on("error", err => {

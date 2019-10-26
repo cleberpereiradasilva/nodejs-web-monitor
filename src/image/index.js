@@ -5,6 +5,7 @@ const sharp = require("sharp");
 const uuid = require("uuid/v1");
 const download = require("image-downloader");
 var imgur = require("imgur");
+//free keys on planthonJsCloud site
 const keys = [
   "ak-y9qfg-d507v-b30qt-w5eg2-rqjws",
   "ak-9y1gn-8vxzm-j25cx-3nm0d-sw5ea",
@@ -25,7 +26,6 @@ const checkImage = (actual, compare, cb) => {
   looksSame(actual, compare, function(error, equal) {
     removeFile(actual);
     if (!equal || !equal.equal) {
-      console.log("Not Equal");
       saveImageInImgUrl(compare, props => {
         removeFile(compare);
         cb(props);
