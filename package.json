@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "http": "^0.0.0",
     "image-downloader": "^3.5.0",
     "imgur": "^0.3.1",
     "looks-same": "^7.2.1",

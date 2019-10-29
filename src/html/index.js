@@ -1,7 +1,9 @@
 const https = require("https");
+const http = require("http");
 
 const getStatusHttps = (url, cb) => {
-  https
+  const httpClient = url.startsWith("https") ? https : http;
+  httpClient
     .get(url, resp => {
       let data = "";
       // A chunk of data has been recieved.
@@ -11,7 +13,7 @@ const getStatusHttps = (url, cb) => {
 
       // The whole response has been received. Print out the result.
       resp.on("end", () => {
-        cb({ data: data, statusCode: resp.statusCode });
+        cb({ data: data, statusCode: resp.statusCode, url: url });
       });
     })
     .on("error", err => {
