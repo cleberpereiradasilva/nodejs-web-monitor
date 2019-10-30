@@ -167,6 +167,40 @@ If it doesn't match the images, you'll get a message on your slack channel with 
 - Full url\
   `http://localhost:3000/status/?url=https://www.cvc.com.br/promocao/top-destinos/&statusCode=200&slackKey=/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX`
 
+#### 4.5 Check by external api
+
+You can get all commands from an external **API** with `json` body like this:
+
+```
+  {
+      type: "check",
+      url: "https://www.cvc.com.br/promoca/top-destinos/",
+      width: "600",
+      height: "324",
+      left: "0",
+      top: "0",
+      image: "https://i.imgur.com/llK99r8.png",
+      slackKey: "/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      type: "has",
+      url: "https://www.cvc.com.br/promocao/top-destinos/",
+      exptected: "Foz do Iguaçua",
+      slackKey: "/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    },
+    {
+      type: "status",
+      url: "https://www.cvc.com.br/promocao/top-destinos/",
+      statusCode: "200",
+      slackKey: "/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    }
+
+```
+
+This example can be viewed at `http://localhost/fake-api`
+
+To execute all returned items you can call by this **URL** `http://localhost:3000/check-list/?url=http://localhost:3000/fake-api`
+
 ## Built With
 
 - [Java Script](https://www.w3.org) - The lenguage used

@@ -22,13 +22,13 @@ const removeFile = file => {
   } catch (err) {}
 };
 
-const checkImage = (actual, compare, cb) => {
+const checkImage = (actual, compare, url, cb) => {
   looksSame(actual, compare, function(error, equal) {
     removeFile(actual);
     if (!equal || !equal.equal) {
       saveImageInImgUrl(compare, props => {
         removeFile(compare);
-        cb(props);
+        cb({ data: props, url: url });
       });
     } else {
       removeFile(compare);
@@ -135,8 +135,14 @@ const checkState = actual => {
   return fs.existsSync(actual);
 };
 
-const config = async (url, configs, cb) => {
+const config = async ({ width, height, left, top, url }, cb) => {
   const key = uuid();
+  const configs = {
+    width: width * 1,
+    height: height * 1,
+    left: left * 1,
+    top: top * 1
+  };
   const actual = `site_actual_${key}.png`;
   const actualCroped = `image_actual_croped_${key}.png`;
 
@@ -154,12 +160,20 @@ const check = async (url, imageFromWeg) => {
   await downloadImage(url, imageFromWeg);
 };
 
-const getActual = async (url, img, configs, cb) => {
+const getActual = async ({ width, height, left, top, url, image }, cb) => {
+  const configs = {
+    width: width * 1,
+    height: height * 1,
+    left: left * 1,
+    top: top * 1
+  };
+
   const key = uuid();
   const actual = `site_actual_${key}.png`;
   const imageToday = `image_today_croped_${key}.png`;
   const imageFromWeg = `theImage_${key}.png`;
-  await check(img, imageFromWeg);
+
+  await check(image, imageFromWeg);
   while (!checkState(imageFromWeg)) {
     await sleep(2000);
   }
@@ -168,7 +182,7 @@ const getActual = async (url, img, configs, cb) => {
   while (!checkState(imageToday)) {
     await sleep(2000);
   }
-  await checkImage(imageFromWeg, imageToday, cb);
+  await checkImage(imageFromWeg, imageToday, url, cb);
   removeFile(actual);
 };
 
