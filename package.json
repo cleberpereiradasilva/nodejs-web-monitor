@@ -12,7 +12,7 @@
     "image-downloader": "^3.5.0",
     "imgur": "^0.3.1",
     "looks-same": "^7.2.1",
-    "nodemon": "^1.19.3",
+    "nodemon": "^2.0.4",
     "phantom": "^6.3.0",
     "phantomjscloud": "^3.5.5",
     "sharp": "^0.23.1",
